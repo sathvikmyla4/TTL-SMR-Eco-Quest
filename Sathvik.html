@@ -1,11 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team SMR — Sathvik Myla</title>
+    <style>
+        /* Base styling with a smooth font and a beautiful greenery background */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(240, 248, 240, 0.9)), 
+                        url('https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&q=80&w=1920') no-repeat center center fixed;
+            background-size: cover;
+            color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Profile card design with smooth borders and subtle green shadows */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            width: 100%;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(46, 125, 50, 0.15);
+            border: 1px solid rgba(129, 199, 132, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Smooth hover animation */
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(46, 125, 50, 0.25);
+        }
+
+        /* Modern green accent headings */
+        h3 {
+            color: #2e7d32;
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #66bb6a;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        /* Clean divider line with a green tint */
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #81c784, transparent);
+            margin: 20px 0;
+        }
+
+        /* Paragraph text adjustments */
+        p {
+            line-height: 1.6;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        /* Specific green highlight for the app name */
+        .app-highlight {
+            color: #1b5e20;
+            background-color: #e8f5e9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        strong {
+            color: #1b5e20;
+        }
+    </style>
+</head>
 <body>
-  <h3 style="color: green;">Team SMR — Sathvik Myla</h3>
-  <p><strong>Age: 16 | Co-Founder &amp; Interface Designer</strong></p>
-  <hr>
-  
-  <p>Hi, my name is <strong>Sathvik Myla</strong>, and I am a 16-year-old co-founder of <font color="green"><strong>Eco Quest</strong></font>, representing team <strong>SMR</strong>.</p> 
 
-  <p><strong>Why We Made It:</strong> We created this game-style app to build a cleaner community by making environmental action fun and purposeful. By using green leaves (XP) on a leaderboard and offering prizes to the top three finishers, we want to give people a rewarding incentive to clean up surrounding pollution and care for the environment.</p>
+    <div class="profile-card">
+        <h3>Team SMR — Sathvik Myla</h3>
+        <div class="subtitle">Age: 16 | Co-Founder &amp; Interface Designer</div>
+        
+        <hr>
+        
+        <p>Hi, my name is <strong>Sathvik Myla</strong>, and I am a 16-year-old co-founder of <span class="app-highlight">Eco Quest</span>, representing team <strong>SMR</strong>.</p>
+        
+        <p><strong>Why We Made It:</strong> We created this game-style app to build a cleaner community by making environmental action fun and purposeful. By using green leaves (XP) on a leaderboard and offering prizes to the top three finishers, we want to give people a rewarding incentive to clean up surrounding pollution and care for the environment.</p>
+        
+        <p><strong>My Contributions:</strong> As a co-founder, my main job was to create a strong, dependable interface that our users could rely on. I built the app's homepage and designed a smooth, clean user interface. Additionally, I set up and managed our team's GitHub repository where all of our project code is securely saved.</p>
+    </div>
 
-  <p><strong>My Contributions:</strong> As a co-founder, my main job was to create a strong, dependable interface that our users could rely on. I built the app's homepage and designed a smooth, clean user interface. Additionally, I set up and managed our team's GitHub repository where all of our project code is securely saved.</p>
 </body>
+</html>
