@@ -1,36 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<body>
-  <h1>Team Member Ronald Gresham</h1>
-<img src="https://avatars.githubusercontent.com/u/294890978?v=4&size=64">
-  <h2>Hi my name is Ronald Gresham.</h2>
-    <h3>I am a co-founder and designer of Eco-Quest:A game that uses recycling as a fun game to help clean up our earth!</h3>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team SMR — Sathvik Myla</title>
+    <style>
+        /* Base styling with a smooth font and a beautiful greenery background */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(240, 248, 240, 0.9)), 
+                        url('https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&q=80&w=1920') no-repeat center center fixed;
+            background-size: cover;
+            color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
 
+        /* Profile card design with smooth borders and subtle green shadows */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            width: 100%;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(46, 125, 50, 0.15);
+            border: 1px solid rgba(129, 199, 132, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-  <h3>My contributions: My contributions was helping with the design of the app and helping with putting in links.</h3>
-</body>
-<style>
-    body {
-      background-color: #11f719;
-      font-family: Bold;
-    }
+        /* Smooth hover animation */
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(46, 125, 50, 0.25);
+        }
 
-    h1 {
-      color: blue;
-      text-align: center;
-    }
+        /* Modern green accent headings */
+        h3 {
+            color: #2e7d32;
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
 
-   h2 {
-      color: black;
-      text-align: center;
-    }
+        .subtitle {
+            color: #66bb6a;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
 
-   h3 {
-      color: blue;
-      text-align: center;
-    }
+        /* Clean divider line with a green tint */
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #81c784, transparent);
+            margin: 20px 0;
+        }
 
-</style>
+        /* Paragraph text adjustments */
+        p {
+            line-height: 1.6;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
 
+        /* Specific green highlight for the app name */
+        .app-highlight {
+            color: #1b5e20;
+            background-color: #e8f5e9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
 
-    
+        strong {
+            color: #1b5e20;
+        }
+    </style>
 </head>
+<body>
+
+    <div class="profile-card">
+        <h3>Team SMR — Ronald Gresham</h3>
+        <div class="subtitle">Age: 16 | Co-Founder</div>
+        
+        <hr>
+        
+        <p>Hi my name is Ronald Gresham. <strong> I am a 16-year-old co-founder of <span class="app-highlight">Eco Quest</span>, representing team <strong>SMR</strong>.</p>
+        
+        <p><strong> I am a co-founder and designer of Eco-Quest: A game that uses recycling as a fun game to help clean up our earth! My contributions was helping with the design of the app and helping with putting in links.</p>
+
+    </div>
+
+</body>
+</html>
