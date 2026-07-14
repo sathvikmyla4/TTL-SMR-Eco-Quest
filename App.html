@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoQuest</title>
+  <style>
+    /* --- Core Configuration & Typography --- */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f2ede3;
+      color: #0f2910;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- Universal Utilities --- */
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .w-full { width: 100%; }
+    .list-none { list-style: none; }
+    .no-underline { text-decoration: none; }
+    .hidden { display: none; }
+     
+    @media (min-width: 768px) {
+      .md\:flex { display: flex; }
+    }
+
+    /* --- Navigation Bar UI --- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: #0f2910;
+      padding: 0.85rem 2rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Fixed Typo here */
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .logo-box {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 0.65rem;
+      background: linear-gradient(135deg, #4a8c3f, #7ec85a);
+      font-size: 1.1rem;
+    }
+
+    .nav-menu {
+      flex-grow: 1;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin: 0 2rem;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.45rem 0.9rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+
+    .nav-link.active {
+      color: #7ec85a;
+      background-color: rgba(126, 200, 90, 0.12);
+      font-weight: 600;
+    }
+
+    .btn-join {
+      background: linear-gradient(135deg, #4a8c3f, #6ab848);
+      color: #fff;
+      padding: 0.6rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(74, 140, 63, 0.3);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-join:hover {
+      transform: translateY(-1px);
+    }
+
+    /* --- Adaptive Page View System --- */
+    .page-view {
+      display: none;
+      width: 100%;
+    }
+
+    .page-view.active-view {
+      display: block;
+    }
+
+    /* --- Dynamic Hero Banner Background System --- */
+    .hero-banner {
+      background: linear-gradient(to bottom, #bcebb5 0%, #f2ede3 100%);
+      padding: 3.5rem 1.5rem 2.5rem 1.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Alternative Dark Banner style matching Leaderboard screenshot */
+    .hero-banner.dark-banner {
+      background: #0f2910;
+      color: white !important;
+      padding: 2.5rem 1.5rem 4.5rem 1.5rem;
+    }
+
+    .hero-tag {
+      background-color: rgba(15, 41, 16, 0.06);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #0f2910;
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(15, 41, 16, 0.08);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .hero-banner.dark-banner .hero-tag {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #7ec85a;
+      border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-title {
+      font-size: 2.35rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #4a5d4a;
+      font-weight: 500;
+    }
+
+    .hero-banner.dark-banner .hero-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* --- Main Layout Grid Content Container --- */
+    .content-container {
+      max-width: 660px;
+      margin: -2rem auto 5rem auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* --- Cards & UI Elements Framework --- */
+    .card-base {
+      background-color: #fff;
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      box-shadow: 0 10px 25px rgba(15, 41, 16, 0.03);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .card-icon-frame {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 1rem;
+      background-color: #e6f3e5;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .metric-num {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #4a8c3f;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0.2rem 0;
+    }
+
+    .metric-desc {
+      font-size: 0.82rem;
+      color: #70856f;
+      font-weight: 400;
+    }
+
+    /* --- Core Home Dashboard Layout --- */
+    .home-hero-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    @media (min-width: 900px) {
+      .home-hero-layout { grid-template-columns: 1.1fr 0.9fr; padding: 4.5rem 2rem; }
+    }
+
+    .home-left h1 {
+      font-size: 3.1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-top: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .home-left p {
+      font-size: 1.05rem;
+      color: #4a5d4a;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+
+    .home-cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 480px) {
+      .home-cta-group { flex-direction: row; }
+      .btn-home-primary, .btn-home-secondary { flex: 1; }
+    }
+
+    .btn-home-primary {
+      background-color: #0f2910;
+      color: #fff;
+      padding: 0.95rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .btn-home-secondary {
+      background-color: #fff;
+      color: #0f2910;
+      padding: 0.95rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.95rem;
+      border: 1px solid rgba(15, 41, 16, 0.1);
+    }
+
+    .member-avatars-row flex {
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #0f2910;
+    }
+
+    .avatar-circle-stack {
+      display: flex;
+    }
+
+    .avatar-item {
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 9999px;
+      background-color: #4a8c3f;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: bold;
+      border: 2px solid #f2ede3;
+      margin-right: -0.45rem;
+    }
+
+    .dashboard-panel {
+      background-color: #0f2910;
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      color: #fff;
+      position: relative;
+    }
+
+    .dashboard-header {
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .db-title { font-weight: 700; font-size: 0.9rem; color: #fff; }
+    .badge-level {
+      background-color: #ffaa1d;
+      color: #0f2910;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 0.5rem;
+    }
+
+    .db-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .db-metric-box {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 1rem;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .db-metric-box span { display: block; }
+    .db-m-icon { font-size: 1.25rem; margin-bottom: 0.25rem; }
+    .db-m-val { font-size: 1.15rem; font-weight: 800; }
+    .db-m-lbl { font-size: 0.65rem; color: rgba(255, 255, 255, 0.5); font-weight: 500; margin-top: 0.1rem; }
+
+    .progress-wrapper {
+      margin-bottom: 0.5rem;
+    }
+    .progress-text {
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    .progress-bar-bg {
+      background-color: rgba(255, 255, 255, 0.1);
+      height: 0.5rem;
+      border-radius: 9999px;
+      width: 100%;
+    }
+    .progress-bar-fill {
+      background-color: #7ec85a;
+      height: 100%;
+      border-radius: 9999px;
+      width: 78%;
+    }
+
+    .challenge-complete-footer {
+      background-color: #fff;
+      border-radius: 1.25rem;
+      padding: 1.1rem;
+      margin-top: 1.25rem;
+      gap: 0.75rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+    }
+    .cc-icon {
+      width: 2rem;
+      height: 2rem;
+      background-color: #e6f3e5;
+      border-radius: 0.5rem;
+      color: #4a8c3f;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .cc-txt-head { font-size: 0.82rem; font-weight: 700; color: #0f2910; }
+    .cc-txt-sub { font-size: 0.75rem; color: #4a8c3f; font-weight: 600; margin-top: 0.1rem; }
+
+    /* --- Features Stack Card Designs --- */
+    .feature-card {
+      background-color: #fff;
+      border-radius: 1.75rem;
+      padding: 2.25rem;
+      box-shadow: 0 10px 30px rgba(15, 41, 16, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .feature-card.f-green { background-color: #d8f3d4; border: 1px solid rgba(74, 140, 63, 0.15); }
+    .feature-card.f-yellow { background-color: #fef0cd; border: 1px solid rgba(255, 170, 29, 0.15); }
+    .feature-card.f-blue { background-color: #dbe9fe; border: 1px solid rgba(59, 130, 246, 0.15); }
+    .feature-card.f-pink { background-color: #fce7f3; border: 1px solid rgba(236, 72, 153, 0.15); }
+    .feature-card.f-teal { background-color: #d1fae5; border: 1px solid rgba(16, 185, 129, 0.15); }
+    .feature-card.f-purple { background-color: #f3e8ff; border: 1px solid rgba(147, 51, 234, 0.15); }
+
+    .f-icon-box {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 0.75rem;
+      font-size: 1.25rem;
+      color: #fff;
+    }
+    .feature-card.f-green .f-icon-box { background-color: #4a8c3f; }
+    .feature-card.f-yellow .f-icon-box { background-color: #ffaa1d; }
+    .feature-card.f-blue .f-icon-box { background-color: #3b82f6; }
+    .feature-card.f-pink .f-icon-box { background-color: #ec4899; }
+    .feature-card.f-teal .f-icon-box { background-color: #10b981; }
+    .feature-card.f-purple .f-icon-box { background-color: #9333ea; }
+
+    .f-title { font-size: 1.25rem; font-weight: 700; color: #0f2910; }
+    .f-desc { font-size: 0.92rem; color: #3d4f3c; line-height: 1.55; font-weight: 400; }
+
+    /* --- Team Section Unique Elements --- */
+    .team-quote-banner {
+      background-color: #0f2910;
+      color: #7ec85a;
+      border-radius: 1.5rem;
+      padding: 2.25rem;
+      font-size: 1.05rem;
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.5;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .team-card {
+      background-color: #fff;
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      box-shadow: 0 10px 25px rgba(15, 41, 16, 0.02);
+    }
+    .team-card-header { gap: 1rem; margin-bottom: 1.25rem; }
+    .team-avatar {
+      width: 3.25rem;
+      height: 3.25rem;
+      border-radius: 0.85rem;
+      background-color: #4a8c3f;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .t-name { font-size: 1.2rem; font-weight: 700; color: #0f2910; }
+    .t-role { font-size: 0.82rem; font-weight: 600; color: #4a8c3f; margin-top: 0.1rem; }
+    .t-age { font-size: 0.78rem; color: #9bb09a; font-weight: 500; margin-top: 0.1rem; }
+     
+    .team-quote-container {
+      background-color: #f7f9f6;
+      border: 1px solid rgba(15, 41, 16, 0.04);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      font-size: 0.92rem;
+      color: #3d4f3c;
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+    .btn-team-link {
+      background-color: #d8f3d4;
+      color: #0f2910;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      gap: 0.4rem;
+      transition: background-color 0.2s;
+      display: inline-flex;
+    }
+    .btn-team-link:hover { background-color: #cbdcc8; }
+
+    /* --- Leaderboard Tables & Podiums --- */
+    .podium-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: -3.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .podium-row {
+      border-radius: 1.25rem;
+      padding: 1.1rem 1.5rem;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .podium-row.p-1 { background-color: #fef4cd; border: 1px solid rgba(255, 170, 29, 0.1); }
+    .podium-row.p-2 { background-color: #eff6ff; border: 1px solid rgba(59, 130, 246, 0.1); }
+    .podium-row.p-3 { background-color: #ffedd5; border: 1px solid rgba(234, 88, 12, 0.1); }
+     
+    .podium-badge {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 9999px;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .podium-row.p-1 .podium-badge { background-color: #ffaa1d; }
+    .podium-row.p-2 .podium-badge { background-color: #bfdbfe; }
+    .podium-row.p-3 .podium-badge { background-color: #fed7aa; }
+
+    .podium-lbl { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+    .podium-row.p-1 .podium-lbl { color: #b45309; }
+    .podium-row.p-2 .podium-lbl { color: #1d4ed8; }
+    .podium-row.p-3 .podium-lbl { color: #c2410c; }
+     
+    .podium-val { font-size: 1.05rem; font-weight: 700; margin-top: 0.15rem; color: #0f2910; }
+
+    .table-panel {
+      background-color: #fff;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(15, 41, 16, 0.02);
+    }
+    .table-header-title {
+      background-color: #0f2910;
+      color: #7ec85a;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 1.1rem 1.5rem;
+    }
+    .lb-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .lb-table th {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #9bb09a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #f2ede3;
+    }
+    .lb-table td {
+      padding: 1.1rem 1.5rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-bottom: 1px solid #f9f8f6;
+    }
+    .lb-table tr:last-child td { border-bottom: none; }
+    .col-rank { width: 10%; }
+    .col-name { width: 45%; color: #0f2910; }
+    .col-tag { width: 25%; color: #4a8c3f; }
+    .col-pts { width: 20%; text-align: right; color: #0f2910; font-weight: 700; }
+    .col-rank-num { font-size: 1.1rem; font-weight: 800; }
+    .lb-table tr:nth-child(1) .col-rank-num { color: #ffaa1d; }
+    .lb-table tr:nth-child(2) .col-rank-num { color: #9bb09a; }
+    .lb-table tr:nth-child(3) .col-rank-num { color: #ea580c; }
+
+    /* --- Form Component Section --- */
+    .form-panel {
+      background-color: transparent;
+      max-width: 440px;
+      margin: 2.5rem auto 5rem auto;
+      padding: 0 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0f2910;
+      margin-bottom: 0.45rem;
+    }
+    .form-group input {
+      width: 100%;
+      background-color: #fff;
+      border: 1px solid rgba(15, 41, 16, 0.08);
+      padding: 1rem 1.25rem;
+      border-radius: 1rem;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: #0f2910;
+      outline: none;
+    }
+    .form-group input::placeholder { color: #a1b3a0; }
+    .btn-submit {
+      width: 100%;
+      background-color: #1a3d1a;
+      color: white;
+      border: none;
+      padding: 1.1rem;
+      border-radius: 1.1rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 14px rgba(15, 41, 16, 0.15);
+    }
+    .form-footer-text {
+      text-align: center;
+      font-size: 0.72rem;
+      color: #8fa38e;
+      line-height: 1.5;
+      margin-top: 1.25rem;
+      font-weight: 500;
+    }
+    .form-footer-text a { color: #4a8c3f; text-decoration: none; font-weight: 600; }
+    .form-back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #4a8c3f;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-container">
+      <a href="#/" class="logo flex items-center no-underline" data-route="#/">
+        <div class="logo-box flex items-center justify-center">🌿</div>
+        <span>EcoQuest</span>
+      </a>
+
+      <ul class="nav-menu list-none">
+        <li><a href="#/" class="nav-link" data-route="#/">Home</a></li>
+        <li><a href="#/goal" class="nav-link" data-route="#/goal">Goal</a></li>
+        <li><a href="#/stats" class="nav-link" data-route="#/stats">Stats</a></li>
+        <li><a href="#/leaderboard" class="nav-link" data-route="#/leaderboard">Leaderboard</a></li>
+        <li><a href="#/features" class="nav-link" data-route="#/features">Features</a></li>
+        <li><a href="#/team" class="nav-link" data-route="#/team">Team</a></li>
+      </ul>
+
+      <a href="#/signup" class="btn-join no-underline" data-route="#/signup">Join the Quest →</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <div id="view-home" class="page-view">
+      <div class="home-hero-layout">
+        <div class="home-left">
+          <div class="hero-tag">⚡ Turn sustainability into a game</div>
+          <h1>Make Saving the Planet<br>Fun & Rewarding</h1>
+          <p>Join thousands of eco-conscious individuals tracking their environmental impact, competing in challenges, and building a sustainable future together.</p>
+           
+          <div class="home-cta-group">
+            <a href="#/signup" class="btn-home-primary no-underline" data-route="#/signup">Join the Quest →</a>
+            <a href="#/goal" class="btn-home-secondary no-underline" data-route="#/goal">Learn More</a>
+          </div>
+
+          <div class="member-avatars-row flex">
+            <div class="avatar-circle-stack">
+              <div class="avatar-item flex items-center justify-center">A</div>
+              <div class="avatar-item flex items-center justify-center">B</div>
+              <div class="avatar-item flex items-center justify-center">C</div>
+              <div class="avatar-item flex items-center justify-center">D</div>
+              <div class="avatar-item flex items-center justify-center">E</div>
+            </div>
+            <span>134+ community members joined</span>
+          </div>
+        </div>
+
+        <div class="home-right flex flex-col justify-center">
+          <div class="dashboard-panel">
+            <div class="badge-level" style="position: absolute; top: 1.25rem; right: 1.25rem;">⭐ Level 12</div>
+            <div class="dashboard-header flex">
+              <span class="db-title">Your Impact This Week</span>
+            </div>
+
+            <div class="db-metrics-grid">
+              <div class="db-metric-box">
+                <span class="db-m-icon">🌳</span>
+                <span class="db-m-val">23</span>
+                <span class="db-m-lbl">Trees Saved</span>
+              </div>
+              <div class="db-metric-box">
+                <span class="db-m-icon">💧</span>
+                <span class="db-m-val">1.2K</span>
+                <span class="db-m-lbl">Liters Saved</span>
+              </div>
+              <div class="db-metric-box">
+                <span class="db-m-icon">⚡</span>
+                <span class="db-m-val">85</span>
+                <span class="db-m-lbl">kWh Saved</span>
+              </div>
+            </div>
+
+            <div class="progress-wrapper">
+              <div class="progress-text flex">
+                <span>Weekly Goal Progress</span>
+                <span>78%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="challenge-complete-footer flex items-center">
+            <div class="cc-icon flex items-center justify-center">✅</div>
+            <div>
+              <div class="cc-txt-head">Daily Challenge Complete!</div>
+              <div class="cc-txt-sub">+50 XP earned</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-goal" class="page-view">
+      <div class="hero-banner">
+        <div class="hero-tag">🎯 Our Mission</div>
+        <h1 class="hero-title">The Goal</h1>
+        <p class="hero-subtitle">Why EcoQuest exists</p>
+      </div>
+      <div class="content-container">
+        <div class="card-base flex-col" style="align-items: flex-start; gap: 0.85rem;">
+          <div class="card-icon-frame flex items-center justify-center" style="background-color: #dbe9fe;">🌍</div>
+          <h2 style="font-size: 1.25rem; font-weight:700;">Fighting Pollution Through Play</h2>
+          <p class="metric-desc" style="line-height: 1.6; font-size:0.92rem;">To combat local pollution and boost volunteer activation, Eco Quest provides a thriving community website with an engaging, gamified platform — linking cleanup data into a fun, interactive experience.</p>
+          <p class="metric-desc" style="line-height: 1.6; font-size:0.92rem; margin-top: 0.5rem;">Checkout <b>Eco Quest</b> today to clean your local hot spots, and start transforming neglected litter into self-worth cleaned up.</p>
+        </div>
+        <div class="card-base flex-col f-green" style="align-items: flex-start; gap: 0.85rem; box-shadow: none;">
+          <div class="f-icon-box flex items-center justify-center">🌱</div>
+          <h2 class="f-title" style="font-size: 1.15rem;">Local Action → Global Impact</h2>
+          <p class="f-desc" style="font-size: 0.92rem;">Join the quest to turn local action into global impact, because saving the Earth has never been more fun — or more rewarding.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-stats" class="page-view">
+      <div class="hero-banner">
+        <div class="hero-tag">📊 By the Numbers</div>
+        <h1 class="hero-title">Our Impact</h1>
+        <p class="hero-subtitle">Real numbers from real community action</p>
+      </div>
+      <div class="content-container">
+        <div class="card-base">
+          <div class="card-icon-frame flex items-center justify-center">🗑️</div>
+          <div>
+            <div class="metric-num">2,480</div>
+            <div class="metric-label">Pounds of Waste Removed</div>
+            <div class="metric-desc">Collected across all cleanup events since launch.</div>
+          </div>
+        </div>
+        <div class="card-base">
+          <div class="card-icon-frame flex items-center justify-center" style="background-color: #fef0cd;">👥</div>
+          <div>
+            <div class="metric-num">134</div>
+            <div class="metric-label" style="color: #ffaa1d;">Community Members</div>
+            <div class="metric-desc">Active eco-warriors in our growing network.</div>
+          </div>
+        </div>
+        <div class="card-base">
+          <div class="card-icon-frame flex items-center justify-center" style="background-color: #d1fae5;">✅</div>
+          <div>
+            <div class="metric-num">62</div>
+            <div class="metric-label" style="color: #10b981;">Cleanups Completed</div>
+            <div class="metric-desc">Successful cleanup events organized by our community.</div>
+          </div>
+        </div>
+        <div class="card-base">
+          <div class="card-icon-frame flex items-center justify-center" style="background-color: #fef3c7;">⭐</div>
+          <div>
+            <div class="metric-num">850+</div>
+            <div class="metric-label" style="color: #b45309;">XP Points Awarded</div>
+            <div class="metric-desc">Total experience points earned by participants.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-leaderboard" class="page-view">
+      <div class="hero-banner dark-banner">
+        <div class="hero-tag">🏆 Top Performers</div>
+        <h1 class="hero-title">Leaderboard</h1>
+        <p class="hero-subtitle">Top eco-warriors this month</p>
+      </div>
+      <div class="content-container">
+        <div class="podium-container">
+          <div style="font-size: 0.8rem; font-weight: 700; color: #4a8c3f; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">Teams of the Month</div>
+          <p style="font-size: 0.85rem; color: #556b52; line-height: 1.5; margin-bottom: 0.5rem;">This awards the top 3 people on the leaders board each week, considering monthly performance and giving everyone a new objective to win.</p>
+           
+          <div class="podium-row p-1 flex">
+            <div class="podium-badge flex items-center justify-center">🥇</div>
+            <div>
+              <div class="podium-lbl">1st Place</div>
+              <div class="podium-val">Apple Watch Series 10</div>
+            </div>
+          </div>
+          <div class="podium-row p-2 flex">
+            <div class="podium-badge flex items-center justify-center">🥈</div>
+            <div>
+              <div class="podium-lbl">2nd Place</div>
+              <div class="podium-val">$100 Visa Gift Card</div>
+            </div>
+          </div>
+          <div class="podium-row p-3 flex">
+            <div class="podium-badge flex items-center justify-center">🥉</div>
+            <div>
+              <div class="podium-lbl">3rd Place</div>
+              <div class="podium-val">$50 Amazon Card</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-panel">
+          <div class="table-header-title">Highest Ocean Leaps</div>
+          <table class="lb-table">
+            <thead>
+              <tr>
+                <th class="col-rank">#</th>
+                <th class="col-name">Name</th>
+                <th class="col-tag">Tag</th>
+                <th class="col-pts">Pts</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-rank col-rank-num">1</td>
+                <td class="col-name">Max</td>
+                <td class="col-tag">2#</td>
+                <td class="col-pts">18</td>
+              </tr>
+              <tr>
+                <td class="col-rank col-rank-num">2</td>
+                <td class="col-name">Gale</td>
+                <td class="col-tag">22#</td>
+                <td class="col-pts">16</td>
+              </tr>
+              <tr>
+                <td class="col-rank col-rank-num">3</td>
+                <td class="col-name">James</td>
+                <td class="col-tag">31#</td>
+                <td class="col-pts">15</td>
+              </tr>
+              <tr>
+                <td class="col-rank col-rank-num">4</td>
+                <td class="col-name">Jim</td>
+                <td class="col-tag">21#</td>
+                <td class="col-pts">12</td>
+              </tr>
+              <tr>
+                <td class="col-rank col-rank-num">5</td>
+                <td class="col-name">Thomas</td>
+                <td class="col-tag">13#</td>
+                <td class="col-pts">0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-features" class="page-view">
+      <div class="hero-banner">
+        <div class="hero-tag">✨ Features</div>
+        <h1 class="hero-title">Everything You Need<br>to Go Green</h1>
+        <p class="hero-subtitle">Powerful tools for sustainable living</p>
+      </div>
+      <div class="content-container">
+        <div class="feature-card f-green">
+          <div class="f-icon-box flex items-center justify-center">♻️</div>
+          <div class="f-title">Track Your Impact</div>
+          <div class="f-desc">Log daily eco-actions like recycling, reducing waste, and conserving energy to see your real-world impact in a beautiful dashboard.</div>
+        </div>
+        <div class="feature-card f-yellow">
+          <div class="f-icon-box flex items-center justify-center">🏆</div>
+          <div class="f-title">Earn Achievements</div>
+          <div class="f-desc">Unlock badges, level up, and compete on leaderboards as you build sustainable habits that make a real difference.</div>
+        </div>
+        <div class="feature-card f-blue">
+          <div class="f-icon-box flex items-center justify-center">👥</div>
+          <div class="f-title">Join a Community</div>
+          <div class="f-desc">Connect with eco-warriors worldwide, share tips, and participate in community challenges with people who care.</div>
+        </div>
+        <div class="feature-card f-pink">
+          <div class="f-icon-box flex items-center justify-center">🎯</div>
+          <div class="f-title">Complete Challenges</div>
+          <div class="f-desc">Take on weekly and monthly challenges to push your limits and make a bigger difference in your local environment.</div>
+        </div>
+        <div class="feature-card f-teal">
+          <div class="f-icon-box flex items-center justify-center">📊</div>
+          <div class="f-title">View Detailed Stats</div>
+          <div class="f-desc">See exactly how much waste you have diverted, energy saved, and how you stack up against the community average.</div>
+        </div>
+        <div class="feature-card f-purple">
+          <div class="f-icon-box flex items-center justify-center">🗺️</div>
+          <div class="f-title">Find Cleanup Events</div>
+          <div class="f-desc">Discover nearby cleanup events, RSVP to join, and coordinate with your team directly from the app.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-team" class="page-view">
+      <div class="hero-banner">
+        <div class="hero-tag">✍️ Meet the Team</div>
+        <h1 class="hero-title">The Minds Behind<br>Eco Quest</h1>
+        <p class="hero-subtitle">Young builders on a mission to make the planet cleaner, one cleanup at a time.</p>
+      </div>
+      <div class="content-container">
+        <div class="team-quote-banner">
+          "Our goal is to transform neighborhood cleanups into an engaging, gamified experience that brings communities together — inspiring friendly competition among local friends, schools, and clubs to see who can make the greatest collective impact."
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header flex items-center">
+            <div class="team-avatar flex items-center justify-center">🌐</div>
+            <div>
+              <div class="t-name">Sathvik Myla</div>
+              <div class="t-role">Co-Founder & Lead Developer</div>
+              <div class="t-age">16 y/o</div>
+            </div>
+          </div>
+          <div class="team-quote-container">
+            "I wanted to create this app to make boring neighborhood cleanups feel like a fun, exciting game. By adding points and a leaderboard, I wanted to inspire my neighbors to team up and feel proud of keeping our local parks clean."
+          </div>
+          <a href="sathvik.html" target="_blank" class="btn-team-link flex items-center no-underline">
+            🔗 View Sathvik's Page
+          </a>
+        </div>
+
+        <div class="team-card" style="margin-top: 1.25rem;">
+          <div class="team-card-header flex items-center">
+            <div class="team-avatar flex items-center justify-center">🎨</div>
+            <div>
+              <div class="t-name">Mikel Banks</div>
+              <div class="t-role">Co-Founder & Graphic Designer</div>
+              <div class="t-age">15 y/o</div>
+            </div>
+          </div>
+          <div class="team-quote-container">
+            "I like this app idea because it offers people a fun way to clean up the environment while earning rewards. My contributions to this project included graphic design for the second high-fidelity wireframe model. I also made the website go to different pages from the nav bar instead of jumping to links."
+          </div>
+          <a href="mikel.html" target="_blank" class="btn-team-link flex items-center no-underline">
+            🔗 View Mikel's Page
+          </a>
+        </div>
+
+        <div class="team-card" style="margin-top: 1.25rem;">
+          <div class="team-card-header flex items-center">
+            <div class="team-avatar flex items-center justify-center">🚀</div>
+            <div>
+              <div class="t-name">Ronald</div>
+              <div class="t-role">Co-Founder & Developer</div>
+              <div class="t-age">16 y/o</div>
+            </div>
+          </div>
+          <div class="team-quote-container">
+            "We wanted to build an engaging platform that turns local volunteer coordination into an accessible game where everyone wins by making our neighborhoods cleaner and healthier."
+          </div>
+          <a href="ronald.html" target="_blank" class="btn-team-link flex items-center no-underline">
+            🔗 View Ronald's Page
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="view-signup" class="page-view">
+      <div class="hero-banner">
+        <div class="hero-tag">🔐 Account Setup</div>
+        <h1 class="hero-title">Start Your Quest</h1>
+        <p class="hero-subtitle">Create an account to track your impact</p>
+      </div>
+      <div class="form-panel">
+        <form onsubmit="event.preventDefault();">
+          <div class="form-group">
+            <label for="reg-name">Full Name</label>
+            <input type="text" id="reg-name" placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="reg-email">Email Address</label>
+            <input type="email" id="reg-email" placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label for="reg-pass">Password</label>
+            <input type="password" id="reg-pass" placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn-submit">Sign Up Now</button>
+        </form>
+        <div class="form-footer-text">
+          By signing up, you agree to our <a href="#/">Terms of Service</a> and <a href="#/">Privacy Policy</a>.
+        </div>
+        <a href="#/" class="form-back-btn no-underline">← Back to Dashboard</a>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    /* --- Mini SPA Router Core System Engine --- */
+    function router() {
+      const hash = window.location.hash || '#/';
+      
+      // Select all views
+      const views = document.querySelectorAll('.page-view');
+      views.forEach(v => v.classList.remove('active-view'));
+
+      // Select all nav links
+      const links = document.querySelectorAll('.nav-link');
+      links.forEach(l => l.classList.remove('active'));
+
+      // Routing mappings match conditional structures
+      if (hash === '#/' || hash === '') {
+        document.getElementById('view-home').classList.add('active-view');
+        document.querySelector('.nav-link[data-route="#/"]').classList.add('active');
+      } else if (hash === '#/goal') {
+        document.getElementById('view-goal').classList.add('active-view');
+        document.querySelector('.nav-link[data-route="#/goal"]').classList.add('active');
+      } else if (hash === '#/stats') {
+        document.getElementById('view-stats').classList.add('active-view');
+        document.querySelector('.nav-link[data-route="#/stats"]').classList.add('active');
+      } else if (hash === '#/leaderboard') {
+        document.getElementById('view-leaderboard').classList.add('active-view');
+        document.querySelector('.nav-link[data-route="#/leaderboard"]').classList.add('active');
+      } else if (hash === '#/features') {
+        document.getElementById('view-features').classList.add('active-view');
+        document.querySelector('.nav-link[data-route="#/features"]').classList.add('active');
+      } else if (hash === '#/team') {
+        document.getElementById('view-team').classList.add('active-view');
+        document.querySelector('.nav-link[data-route="#/team"]').classList.add('active');
+      } else if (hash === '#/signup') {
+        document.getElementById('view-signup').classList.add('active-view');
+      }
+      
+      // Auto scroll to top on structural route mutation
+      window.scrollTo(0, 0);
+    }
+
+    // Bind event dynamic listeners
+    window.addEventListener('hashchange', router);
+    window.addEventListener('load', router);
+
+    // Dynamic click routing behavior override
+    document.addEventListener('click', e => {
+      const target = e.target.closest('[data-route]');
+      if (target) {
+        // Handled via standard hashchange mechanism safely
+      }
+    });
+  </script>
+</body>
+</html>
